@@ -1,47 +1,65 @@
-# ChipWhisperer-Nano AES CPA Lab
+# ChipWhisperer-Nano AES-128 CPA Lab
 
-A small, ongoing learning project to gain hands-on experience with power side-channel analysis using the ChipWhisperer-Nano.
+A hands-on study of **power side-channel analysis** using the ChipWhisperer-Nano and its integrated STM32F030 target. The project reproduces an AES-128 correlation power analysis (CPA) exercise, then extends it with **five fresh random-key acquisitions**, trace-count comparisons, and exploratory offline leakage analyses.
 
-The initial experiment reproduces a standard AES-128 correlation power analysis (CPA) exercise. The goal is to understand trace acquisition, leakage-based key recovery, and how to evaluate an attack on real hardware.
+The objective is to gain practical experience with real power-trace acquisition, leakage modelling, key recovery, and reproducible evaluation. This is an educational experiment on an intentionally unprotected AES implementation, **not a novel attack or an evaluation of a production device**.
 
-## Preserved initial results
+## Highlights
 
-- Hardware: ChipWhisperer-Nano with its onboard target
-- Experiment: AES-128 encryption and power-trace capture
-- Captured traces: 100
-- AES ciphertext verification: passed
-- CPA result: 16/16 key bytes recovered correctly
+- **Real hardware:** ChipWhisperer-Nano with its built-in STM32F030 target; 5,000 samples per captured trace.
+- **Initial fixed-key experiments:** recovered all 16 bytes of both an all-zero AES-128 test key and a nonzero test key, using 100 traces per dataset.
+- **Additional random-key experiments:** five acquisitions with a new random AES-128 key and 100 measured traces per acquisition. All **500 ciphertexts** passed independent AES checks.
+- **Key recovery:** full 16-byte key recovery in **5/5 acquisitions at exactly 40 traces** and again at 100 traces, on the captured datasets.
+- **Published evidence:** code, measured trace archives, trial manifests, per-trial results, plots, and tests.
 
-```text
-Expected key:  000102030405060708090a0b0c0d0e0f
-Recovered key: 000102030405060708090a0b0c0d0e0f
+## Experimental approach
+
+The target runs NewAE's SimpleSerial AES firmware using `TINYAES128C`. For each candidate key byte, CPA correlates measured power samples with the predicted Hamming weight of the first-round AES S-box output:
+
+$$
+L(p,k) = \operatorname{HW}(\operatorname{SBOX}(p \oplus k)).
+$$
+
+Here, $p$ is a known plaintext byte and $k$ is a candidate AES key byte. The operator $\oplus$ denotes bitwise XOR; $\operatorname{SBOX}$ is the AES substitution box; and $\operatorname{HW}$ (Hamming weight) counts the number of set bits in a byte. For each of the 256 possible values of $k$, the model predicts an intermediate value's data-dependent leakage across plaintexts. CPA computes Pearson correlation between these predictions and the measured power samples, then ranks the candidate keys by their maximum absolute correlation.
+
+The [original notebook](aes128_cpa_nano.ipynb) documents the fixed-key setup, firmware build and programming, known-answer checks, trace collection, and CPA analysis. The later [random-key capture script](scripts/capture_random_keys.py) acquires new traces using the already installed firmware and verifies each ciphertext with an independent AES implementation. [Offline analysis](scripts/analyze_aes.py) calculates key-byte rankings and recovery results from the saved traces.
+
+## Measured results
+
+The table below shows **full 16-byte key recovery**, aggregated over five separate acquisitions on the *same* Nano during *one* experimental session. Each trial uses a fresh random key; the trace counts are nested prefixes of the same 100-trace acquisition.
+
+| Traces per trial | Fully recovered AES-128 keys |
+| ---: | ---: |
+| 10 | 0 / 5 |
+| 20 | 0 / 5 |
+| 30 | 1 / 5 |
+| **40** | **5 / 5** |
+| 50 | 5 / 5 |
+| 60 | 5 / 5 |
+| 80 | 5 / 5 |
+| 100 | 5 / 5 |
+
+![Full-key recovery across five random-key acquisitions](results/random-key-20261101/independent-trials.png)
+
+See the [aggregate CSV](results/random-key-20261101/independent-trials.csv), [machine-readable results](results/random-key-20261101/independent-trials.json), and [per-trial plots](results/random-key-20261101/). For the original fixed-key measurements, see the [setup and reproduction guide](docs/experiment_setup.md) and the [notebook](aes128_cpa_nano.ipynb).
+
+## Reproduce the offline analysis
+
+With Python installed, from the repository root:
+
+```bash
+python -m pip install -r requirements-analysis.txt
+python scripts/analyze_aes.py data/random-key-20261101/trial-00.npz data/random-key-20261101/trial-01.npz data/random-key-20261101/trial-02.npz data/random-key-20261101/trial-03.npz data/random-key-20261101/trial-04.npz --manifest-dir data/random-key-20261101 --out results/local-reanalysis
 ```
 
-This is a controlled educational experiment using a fixed test key, not a new attack technique or a claim about the security of a production device.
+The output directory must not already exist. The script checks saved plaintext/ciphertext correspondence and produces fresh JSON, CSV, and figures. All five [trace archives and acquisition manifests](data/random-key-20261101/) are committed to the repository. Repeating physical capture requires a ChipWhisperer-Nano and a correctly configured firmware/host environment; see [docs/experiment_setup.md](docs/experiment_setup.md).
 
-## Status and next steps
+## Additional analyses and limitations
 
-On 2026-11-02, five new random-key acquisitions each recorded 100 physical traces
-using the Nano's existing firmware. All 500 ciphertexts passed independent AES
-checks, and all five keys were fully recovered at the exact 40-trace and
-100-trace prefixes. Five successes give a Wilson 95% interval of approximately
-56.6%–100%, conditional on independent trials; this is one device and one visit,
-not a universal minimum or a cross-session reliability study.
+The repository also compares alternative leakage hypotheses and negative controls. Timing shifts are **artificially introduced into measured traces offline**; alignment experiments are exploratory software analysis, **not a deployed hardware countermeasure**.
 
-Offline leakage-model and timing-shift comparisons are also available. Injected
-shifts are **simulated transformations of measured traces**, not a deployed
-countermeasure; an expanded alignment search restored all five keys. No new
-firmware was flashed. The installed firmware's exact image hash remains unknown.
+All five random-key trials used one device in one session, without a power cycle. Thus 5/5 successes at 40 traces **do not establish a general 40-trace threshold or a dependable attack success rate**. The Wilson 95% interval for 5/5 is approximately 56.6%–100% *if the trials are treated as independent*. The exact installed firmware image hash was not verified. The original notebook's inclusive `trace_range` indexing is documented in the [fixed-key results erratum](docs/experiment_setup.md#4-original-fixed-key-results); the newer analysis uses exact prefix counts.
 
-The [experiment setup and reproduction guide](docs/experiment_setup.md)
-distinguishes the initial fixed-key experiment from the additional acquisitions.
-The [five trace archives and manifests](data/random-key-20261102/) and
-[machine-readable outcomes](results/random-key-20261102/) are published here.
+## References and acknowledgment
 
-An [indexing erratum](docs/experiment_setup.md#4-original-fixed-key-results) explains the
-historical notebook's inclusive `trace_range` endpoint. The notebook, original
-datasets, and four original PNGs are unchanged. New analysis uses exact counts.
-
-## Acknowledgment
-
-This learning exercise builds on the [ChipWhisperer tutorials and documentation](https://chipwhisperer.readthedocs.io/).
+This learning project builds on [NewAE ChipWhisperer](https://github.com/newaetech/chipwhisperer), its [documentation and tutorials](https://chipwhisperer.readthedocs.io/), and [NIST FIPS 197 (AES)](https://csrc.nist.gov/pubs/fips/197/final).

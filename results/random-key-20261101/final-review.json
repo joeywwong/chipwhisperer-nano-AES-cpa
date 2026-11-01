@@ -1,5 +1,5 @@
 {
-  "date_local": "2026-11-02",
+  "date_germany": "2026-11-01",
   "repository": "chipwhisperer-nano-AES-cpa",
   "new_measurements_checked": 500,
   "aes_tests": {
@@ -7,6 +7,6 @@
     "failed": 0
   },
   "original_artifact_hashes_preserved_at_review": true,
-  "capture_protocol": "../../data/random-key-20261102/protocol.json",
+  "capture_protocol": "../../data/random-key-20261101/protocol.json",
   "trial_results": "independent-trials.json"
 }

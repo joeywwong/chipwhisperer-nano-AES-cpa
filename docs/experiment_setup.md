@@ -2,7 +2,7 @@
 
 This document describes the original fixed-key experiment in
 [`aes128_cpa_nano.ipynb`](../aes128_cpa_nano.ipynb) and the five later
-random-key acquisitions recorded on 2026-11-02.
+random-key acquisitions recorded on 2026-11-01.
 
 The experiment uses a **ChipWhisperer-Nano with its integrated STM32F030 target**,
 not an external STM32 development board. It is a hands-on learning exercise
@@ -93,7 +93,7 @@ with the measured power samples.
 
 ## 4. Original fixed-key results
 
-**2026-11-02 indexing erratum:** the historical notebook and four original PNGs
+**2026-11-01 indexing erratum:** the historical notebook and four original PNGs
 are preserved. In the installed ChipWhisperer 6.0.0 progressive analyzer,
 `trace_range=[0,n]` includes index `n`: the table below labels requests that used
 11, 21, 31, 41, 51, 61, and 81 traces where available. At `[0,100]`, the analyzer
@@ -102,8 +102,8 @@ Use `[0,n-1]` for exactly `n` traces. Fresh exact-prefix analysis reports
 1/11/15/16/16/16/16/16 correct bytes at 10/20/30/40/50/60/80/100 traces.
 Thus 40 exact traces do recover this archived key, now independently verified;
 the old graph alone did not establish that count. See the
-[published offline audit](../results/offline-20261102/audit.json) and
-[ChipWhisperer cross-check](../results/offline-20261102/chipwhisperer-crosscheck.json).
+[published offline audit](../results/offline-20261101/audit.json) and
+[ChipWhisperer cross-check](../results/offline-20261101/chipwhisperer-crosscheck.json).
 
 The committed notebook contains the following successful outputs:
 
@@ -133,20 +133,20 @@ statistical success rate. Small-prefix analysis emitted a numerical
 
 ## 5. Additional random-key acquisitions
 
-On 2026-11-02, five separate acquisitions on the same Nano each used a fresh
+On 2026-11-01, five separate acquisitions on the same Nano each used a fresh
 random AES key and 100 random plaintexts. The capture program reopened the
 scope for each trial, used the installed firmware without flashing a new image,
 and independently verified all 500 ciphertexts. The installed firmware image
-hash was not established. See the [capture protocol](../data/random-key-20261102/protocol.json),
-[completion record](../data/random-key-20261102/completion.json), and individual
-trial manifests in [`data/random-key-20261102/`](../data/random-key-20261102/).
+hash was not established. See the [capture protocol](../data/random-key-20261101/protocol.json),
+[completion record](../data/random-key-20261101/completion.json), and individual
+trial manifests in [`data/random-key-20261101/`](../data/random-key-20261101/).
 
 The corresponding `trial-00.npz` through `trial-04.npz` archives each contain
 100 waveforms of 5,000 samples, plaintexts, ciphertexts, the trial key, and
 metadata. The manifests record archive hashes. To reproduce the offline
 analysis, run `scripts/analyze_aes.py` on these archives with
-`--manifest-dir data/random-key-20261102`; see its `--help` for output options.
-The [aggregate results](../results/random-key-20261102/independent-trials.json)
+`--manifest-dir data/random-key-20261101`; see its `--help` for output options.
+The [aggregate results](../results/random-key-20261101/independent-trials.json)
 report full-key recovery in 5/5 trials at exact 40-trace and 100-trace
 prefixes, and 1/5 at 30 traces. These are five acquisitions during one visit
 on one device. Five successes do **not** establish a generally reliable
