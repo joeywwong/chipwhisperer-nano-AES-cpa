@@ -1,0 +1,44 @@
+# Python and notebook-generated files
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments / editor settings
+.venv/
+venv/
+env/
+.vscode/
+.idea/
+
+# OS and temporary files
+.DS_Store
+Thumbs.db
+*.tmp
+*.swp
+*~
+
+# Locally generated target firmware and build artifacts
+*.elf
+*.hex
+*.bin
+*.eep
+*.lss
+*.sym
+*.map
+objdir-*/
+
+# ChipWhisperer temporary project databases (we publish portable .npz exports instead)
+*.cwp
+*_data/
+
+# Ignore trace archives outside the intentional published data folder
+*.npz
+!data/
+!data/*.npz
+
+# Keep tracked publication figures; do not exclude results/*.png.

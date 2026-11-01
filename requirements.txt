@@ -1,0 +1,15 @@
+# Libraries imported by the root notebook.
+# Exact tested package versions were NOT recorded in the original session.
+# Prefer NewAE's supported ChipWhisperer Python environment on Windows.
+# In a fresh Python environment, install with: python -m pip install -r requirements.txt
+
+chipwhisperer==6.0.0
+numpy==1.26.4
+matplotlib==3.10.1
+notebook
+ipykernel
+
+# Not Python packages (install separately as described in docs/experiment_setup.md):
+# - Ubuntu/WSL (for Windows firmware compilation)
+# - build-essential and gcc-arm-none-eabi
+# - USB driver support provided by the ChipWhisperer installation
