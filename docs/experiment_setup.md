@@ -92,6 +92,17 @@ with the measured power samples.
 
 ## 4. Recorded results
 
+**2026-11-02 indexing erratum:** the historical notebook and four original PNGs
+are preserved. In the installed ChipWhisperer 6.0.0 progressive analyzer,
+`trace_range=[0,n]` includes index `n`: the table below labels requests that used
+11, 21, 31, 41, 51, 61, and 81 traces where available. At `[0,100]`, the analyzer
+retains the result for the available 100 traces before an out-of-range read.
+Use `[0,n-1]` for exactly `n` traces. Fresh exact-prefix analysis reports
+1/11/15/16/16/16/16/16 correct bytes at 10/20/30/40/50/60/80/100 traces.
+Thus 40 exact traces do recover this archived key, now independently verified;
+the old graph alone did not establish that count. See the
+[audit and cross-check](notes/01_existing_aes_cpa.md).
+
 The committed notebook contains the following successful outputs:
 
 - AES known-answer tests passed.
@@ -113,8 +124,8 @@ The nonzero-key trace-prefix analysis in the committed notebook reported:
 | 80 | 16 |
 | 100 | 16 |
 
-This is **one measured capture set**. The result at 40 traces is the first
-*tested prefix* with complete key recovery, not a guaranteed minimum or a
+This is **one measured capture set**. The historical label 40 corresponds to
+41 traces; see the exact-prefix correction above. It is not a guaranteed minimum or a
 statistical success rate. Small-prefix analysis emitted a numerical
 `RuntimeWarning` about an invalid division; the notebook records it.
 

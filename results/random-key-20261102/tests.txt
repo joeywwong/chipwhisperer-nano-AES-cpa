@@ -1,0 +1,13 @@
+test_aes_known_answer (test_aeslab.LabTests.test_aes_known_answer) ... ok
+test_aggregate_denominators_and_duplicate_rejection (test_aeslab.LabTests.test_aggregate_denominators_and_duplicate_rejection) ... ok
+test_alignment_relative_range (test_aeslab.LabTests.test_alignment_relative_range) ... ok
+test_capture_validation (test_aeslab.LabTests.test_capture_validation) ... ok
+test_cpa_independent_pearson_and_recovery (test_aeslab.LabTests.test_cpa_independent_pearson_and_recovery) ... ok
+test_degenerate_and_ties (test_aeslab.LabTests.test_degenerate_and_ties) ... ok
+test_intervals_and_shift (test_aeslab.LabTests.test_intervals_and_shift) ... ok
+test_loader_correspondence_and_shape (test_aeslab.LabTests.test_loader_correspondence_and_shape) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 1.179s
+
+OK

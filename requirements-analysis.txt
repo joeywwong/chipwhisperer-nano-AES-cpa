@@ -1,0 +1,5 @@
+# Verified offline/capture environment on 2026-11-02, Python 3.12.9.
+numpy==1.26.4
+matplotlib==3.10.1
+pycryptodome==3.22.0
+# Hardware only: chipwhisperer==6.0.0 (separate USB drivers required).

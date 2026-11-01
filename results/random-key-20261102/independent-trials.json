@@ -1,0 +1,149 @@
+{
+  "scope": "fresh keys/acquisitions, same device/visit; prefixes dependent across n; Wilson assumes independent Bernoulli trials",
+  "rows": [
+    {
+      "traces": 10,
+      "planned_trials": 5,
+      "attempted_trials": 5,
+      "analyzed_trials": 5,
+      "missing_or_failed": 0,
+      "full_key_successes": 0,
+      "success_rate_completed": 0.0,
+      "wilson95_completed": [
+        0.0,
+        0.43448246478317476
+      ],
+      "conservative_successes_per_planned": 0.0,
+      "mean_per_byte_accuracy": 0.05,
+      "mean_rank_worst": 95.2625,
+      "sd_rank_worst": 74.48927265389514,
+      "invalid_runs": 0
+    },
+    {
+      "traces": 20,
+      "planned_trials": 5,
+      "attempted_trials": 5,
+      "analyzed_trials": 5,
+      "missing_or_failed": 0,
+      "full_key_successes": 0,
+      "success_rate_completed": 0.0,
+      "wilson95_completed": [
+        0.0,
+        0.43448246478317476
+      ],
+      "conservative_successes_per_planned": 0.0,
+      "mean_per_byte_accuracy": 0.475,
+      "mean_rank_worst": 7.025,
+      "sd_rank_worst": 15.401771228077155,
+      "invalid_runs": 0
+    },
+    {
+      "traces": 30,
+      "planned_trials": 5,
+      "attempted_trials": 5,
+      "analyzed_trials": 5,
+      "missing_or_failed": 0,
+      "full_key_successes": 1,
+      "success_rate_completed": 0.2,
+      "wilson95_completed": [
+        0.03622410863243014,
+        0.6244653702374747
+      ],
+      "conservative_successes_per_planned": 0.2,
+      "mean_per_byte_accuracy": 0.95,
+      "mean_rank_worst": 1.15,
+      "sd_rank_worst": 0.7479930954802163,
+      "invalid_runs": 0
+    },
+    {
+      "traces": 40,
+      "planned_trials": 5,
+      "attempted_trials": 5,
+      "analyzed_trials": 5,
+      "missing_or_failed": 0,
+      "full_key_successes": 5,
+      "success_rate_completed": 1.0,
+      "wilson95_completed": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conservative_successes_per_planned": 1.0,
+      "mean_per_byte_accuracy": 1.0,
+      "mean_rank_worst": 1.0,
+      "sd_rank_worst": 0.0,
+      "invalid_runs": 0
+    },
+    {
+      "traces": 50,
+      "planned_trials": 5,
+      "attempted_trials": 5,
+      "analyzed_trials": 5,
+      "missing_or_failed": 0,
+      "full_key_successes": 5,
+      "success_rate_completed": 1.0,
+      "wilson95_completed": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conservative_successes_per_planned": 1.0,
+      "mean_per_byte_accuracy": 1.0,
+      "mean_rank_worst": 1.0,
+      "sd_rank_worst": 0.0,
+      "invalid_runs": 0
+    },
+    {
+      "traces": 60,
+      "planned_trials": 5,
+      "attempted_trials": 5,
+      "analyzed_trials": 5,
+      "missing_or_failed": 0,
+      "full_key_successes": 5,
+      "success_rate_completed": 1.0,
+      "wilson95_completed": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conservative_successes_per_planned": 1.0,
+      "mean_per_byte_accuracy": 1.0,
+      "mean_rank_worst": 1.0,
+      "sd_rank_worst": 0.0,
+      "invalid_runs": 0
+    },
+    {
+      "traces": 80,
+      "planned_trials": 5,
+      "attempted_trials": 5,
+      "analyzed_trials": 5,
+      "missing_or_failed": 0,
+      "full_key_successes": 5,
+      "success_rate_completed": 1.0,
+      "wilson95_completed": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conservative_successes_per_planned": 1.0,
+      "mean_per_byte_accuracy": 1.0,
+      "mean_rank_worst": 1.0,
+      "sd_rank_worst": 0.0,
+      "invalid_runs": 0
+    },
+    {
+      "traces": 100,
+      "planned_trials": 5,
+      "attempted_trials": 5,
+      "analyzed_trials": 5,
+      "missing_or_failed": 0,
+      "full_key_successes": 5,
+      "success_rate_completed": 1.0,
+      "wilson95_completed": [
+        0.5655175352168251,
+        1.0
+      ],
+      "conservative_successes_per_planned": 1.0,
+      "mean_per_byte_accuracy": 1.0,
+      "mean_rank_worst": 1.0,
+      "sd_rank_worst": 0.0,
+      "invalid_runs": 0
+    }
+  ]
+}

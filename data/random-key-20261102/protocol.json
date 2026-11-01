@@ -1,0 +1,17 @@
+{
+  "status": "MEASURED",
+  "session_id": "91628168-6ec5-4206-85a0-02e227ae0e99",
+  "python": "3.12.9",
+  "chipwhisperer": "6.0.0",
+  "numpy": "1.26.4",
+  "protocol": "SimpleSerial 1.1",
+  "target": "Nano integrated STM32F030; owner laboratory target",
+  "firmware_installed_hash": "UNKNOWN: no readback or flashing performed",
+  "candidate_firmware_sha256": "93a29483fe7fefe4a0c41747b484799e05277eaf3a13a92b40dffc5091bcd8cc",
+  "requested_trials": 5,
+  "requested_traces": 100,
+  "samples": 5000,
+  "independence": "fresh OS-random key/plaintexts and reopened scope per trial; one visit, no power cycle",
+  "key_reload": "set_key(always_send=True) and capture_trace(always_send_key=True) every encryption",
+  "reset_validation": "No reset requested; each returned ciphertext independently checked"
+}

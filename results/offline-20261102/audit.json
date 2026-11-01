@@ -1,0 +1,37 @@
+{
+  "date_local": "2026-11-02",
+  "original_artifacts_sha256": {
+    "aes128_cpa_nano.ipynb": "fd770083f3a972d5e3a090c514199eb115cc3801250248ef5fceeac983645f70",
+    ".gitignore": "eb48e829ae7f7cb3f49c567aa1a75e48026ebba3fce1a4f8fd2ed558841ceda0",
+    "data/aes_100_traces.npz": "d72e1e845891ef1c365731f6c97e0a06561644fff7b3111234dcd99b8703c2fa",
+    "data/aes_100_traces_nonzero_key.npz": "21dd0a475dbaab28ac00d61cd5d20d7af6696edef884624c410921adcf48101f",
+    "results/key_recovery_vs_traces.png": "a7e2295203c6dbd259ac05b24f26dce621650c570ece7fc318fb8b6992e8706f",
+    "results/power_traces.png": "5a0cdbded42d9a09cb6711da8e082e5b1ec16b1afa48b77f297aedc532059093",
+    "results/trace_variability.png": "78bf0ed2d15eff67ca0260a715ac82787a5f4243d410cb7d3dd3c104d067321a",
+    "results/verified_aes_trace.png": "d64cbb400b8b1f7581c1e158f3690c02f27c590fedc3d7d90be009fbf17437c2"
+  },
+  "datasets": {
+    "aes_100_traces.npz": {
+      "shape": [
+        100,
+        5000
+      ],
+      "dtype": "float64",
+      "ciphertexts_verified": 100,
+      "metadata": {
+        "provenance": "legacy notebook; acquisition settings/date/firmware hash not archived"
+      }
+    },
+    "aes_100_traces_nonzero_key.npz": {
+      "shape": [
+        100,
+        5000
+      ],
+      "dtype": "float64",
+      "ciphertexts_verified": 100,
+      "metadata": {
+        "provenance": "legacy notebook; acquisition settings/date/firmware hash not archived"
+      }
+    }
+  }
+}
