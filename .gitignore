@@ -40,5 +40,7 @@ objdir-*/
 *.npz
 !data/
 !data/*.npz
+!data/random-key-20261102/
+!data/random-key-20261102/trial-*.npz
 
 # Keep tracked publication figures; do not exclude results/*.png.

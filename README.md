@@ -33,13 +33,12 @@ shifts are **simulated transformations of measured traces**, not a deployed
 countermeasure; an expanded alignment search restored all five keys. No new
 firmware was flashed. The installed firmware's exact image hash remains unknown.
 
-Start with the [experiment roadmap](docs/notes/experiment_roadmap.md),
-[three-pass notes](docs/notes/01_existing_aes_cpa.md), and
-[professor discussion guide](docs/notes/explain_to_professor.md).
-Machine-readable outcomes are in
-[results/random-key-20261102](results/random-key-20261102).
+The [experiment setup and reproduction guide](docs/experiment_setup.md)
+distinguishes the initial fixed-key experiment from the additional acquisitions.
+The [five trace archives and manifests](data/random-key-20261102/) and
+[machine-readable outcomes](results/random-key-20261102/) are published here.
 
-An [indexing erratum](docs/experiment_setup.md#4-recorded-results) explains the
+An [indexing erratum](docs/experiment_setup.md#4-original-fixed-key-results) explains the
 historical notebook's inclusive `trace_range` endpoint. The notebook, original
 datasets, and four original PNGs are unchanged. New analysis uses exact counts.
 

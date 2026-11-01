@@ -1,7 +1,8 @@
 # ChipWhisperer-Nano AES CPA: Setup and Reproduction
 
-This document describes the experimental setup and reproduction procedure for
-[`aes128_cpa_nano.ipynb`](../aes128_cpa_nano.ipynb).
+This document describes the original fixed-key experiment in
+[`aes128_cpa_nano.ipynb`](../aes128_cpa_nano.ipynb) and the five later
+random-key acquisitions recorded on 2026-11-02.
 
 The experiment uses a **ChipWhisperer-Nano with its integrated STM32F030 target**,
 not an external STM32 development board. It is a hands-on learning exercise
@@ -61,7 +62,7 @@ The notebook checks both locations before beginning.
 On Windows, the firmware build cell calls WSL's Ubuntu distribution. If the
 distribution has a different name, set `CHIPWHISPERER_WSL_DISTRO`.
 
-## 3. Execute the hardware experiment
+## 3. Execute the original fixed-key hardware experiment
 
 With the Nano connected via USB, execute the notebook cells in sequence:
 
@@ -90,7 +91,7 @@ L(p,k)=\operatorname{HW}(\operatorname{SBOX}(p\oplus k)).
 The analyzer correlates the predicted first-round S-box output Hamming weight
 with the measured power samples.
 
-## 4. Recorded results
+## 4. Original fixed-key results
 
 **2026-11-02 indexing erratum:** the historical notebook and four original PNGs
 are preserved. In the installed ChipWhisperer 6.0.0 progressive analyzer,
@@ -101,7 +102,8 @@ Use `[0,n-1]` for exactly `n` traces. Fresh exact-prefix analysis reports
 1/11/15/16/16/16/16/16 correct bytes at 10/20/30/40/50/60/80/100 traces.
 Thus 40 exact traces do recover this archived key, now independently verified;
 the old graph alone did not establish that count. See the
-[audit and cross-check](notes/01_existing_aes_cpa.md).
+[published offline audit](../results/offline-20261102/audit.json) and
+[ChipWhisperer cross-check](../results/offline-20261102/chipwhisperer-crosscheck.json).
 
 The committed notebook contains the following successful outputs:
 
@@ -129,9 +131,31 @@ This is **one measured capture set**. The historical label 40 corresponds to
 statistical success rate. Small-prefix analysis emitted a numerical
 `RuntimeWarning` about an invalid division; the notebook records it.
 
-## 5. Published artifacts
+## 5. Additional random-key acquisitions
 
-The repository contains two measured `.npz` archives:
+On 2026-11-02, five separate acquisitions on the same Nano each used a fresh
+random AES key and 100 random plaintexts. The capture program reopened the
+scope for each trial, used the installed firmware without flashing a new image,
+and independently verified all 500 ciphertexts. The installed firmware image
+hash was not established. See the [capture protocol](../data/random-key-20261102/protocol.json),
+[completion record](../data/random-key-20261102/completion.json), and individual
+trial manifests in [`data/random-key-20261102/`](../data/random-key-20261102/).
+
+The corresponding `trial-00.npz` through `trial-04.npz` archives each contain
+100 waveforms of 5,000 samples, plaintexts, ciphertexts, the trial key, and
+metadata. The manifests record archive hashes. To reproduce the offline
+analysis, run `scripts/analyze_aes.py` on these archives with
+`--manifest-dir data/random-key-20261102`; see its `--help` for output options.
+The [aggregate results](../results/random-key-20261102/independent-trials.json)
+report full-key recovery in 5/5 trials at exact 40-trace and 100-trace
+prefixes, and 1/5 at 30 traces. These are five acquisitions during one visit
+on one device. Five successes do **not** establish a generally reliable
+40-trace attack; the Wilson 95% interval for 5/5 is approximately 56.6%–100%
+if the trials are treated as independent. Prefixes within a trial are dependent.
+
+## 6. Published original artifacts
+
+The original notebook published two measured `.npz` archives:
 
 - [`data/aes_100_traces.npz`](../data/aes_100_traces.npz)
 - [`data/aes_100_traces_nonzero_key.npz`](../data/aes_100_traces_nonzero_key.npz)
@@ -154,15 +178,16 @@ The following figures are generated under `results/`:
 
 The ChipWhisperer `.cwp` project files generated during execution are
 local working files and are excluded by `.gitignore`; the `.npz` archives
-are the portable published datasets.
+are the portable published datasets for both experiments.
 
-## 6. Scope and limitations
+## 7. Scope and limitations
 
 - The target is an intentionally unprotected educational AES implementation.
-- The exercise uses two known fixed test keys rather than independently
-  randomized keys across many sessions.
-- The trace-prefix curve reuses the same captured dataset; it is **not**
-  a measured attack success probability.
+- The original notebook uses two known fixed test keys; the later five
+  acquisitions use fresh random keys, but all were recorded on one device
+  during one visit without a power cycle.
+- The original trace-prefix curve reuses the same captured dataset; it is
+  **not** a measured attack success probability.
 - Hardware-specific results can change across captures due to noise,
   selected random plaintexts, alignment, and environmental conditions.
 - The code and firmware depend on the NewAE ChipWhisperer ecosystem.
